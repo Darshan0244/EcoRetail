@@ -23,7 +23,11 @@ const mockChainData: VerificationStep[] = [
   { id: '4', title: 'Distribution Center', description: 'Arrived at regional hub', timestamp: '2023-10-10 05:00 UTC', icon: ShoppingCart },
 ];
 
-export default function SourceVerification() {
+interface SourceVerificationProps {
+  onResult?: (result: any) => void;
+}
+
+export default function SourceVerification({ onResult }: SourceVerificationProps) {
   const [productId, setProductId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<VerificationStep[] | null>(null);

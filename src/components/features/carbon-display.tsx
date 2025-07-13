@@ -6,7 +6,6 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Cart
 import { FeaturePage } from '@/components/feature-page';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { cn } from '@/lib/utils';
 
 const products = {
   apples: {
@@ -31,7 +30,11 @@ const products = {
 
 type ProductKey = keyof typeof products;
 
-export default function CarbonDisplay() {
+interface CarbonDisplayProps {
+  onResult?: (result: any) => void; // Not used, but keeps component signature consistent
+}
+
+export default function CarbonDisplay({ onResult }: CarbonDisplayProps) {
   const [selectedProductKey, setSelectedProductKey] = useState<ProductKey>('apples');
 
   const selectedProduct = products[selectedProductKey];

@@ -16,7 +16,11 @@ const packagingOptions = [
   { id: 'cornstarch', name: 'Cornstarch Packaging', imageUrl: 'https://mushroompackaging.com/cdn/shop/files/Small_cooler_both_Pieces.jpg?v=1670267413', dataAiHint: 'cornstarch foam', biodegradable: true, compostable: true, recyclable: false, description: 'A plant-based alternative to styrofoam peanuts. Dissolves in water and is fully compostable.', suitability: { type: ['electronics', 'glassware'], volume: ['medium', 'large'], distance: ['short', 'medium'] } },
 ];
 
-export default function PackageGuide() {
+interface PackageGuideProps {
+  onResult?: (result: any) => void;
+}
+
+export default function PackageGuide({ onResult }: PackageGuideProps) {
   const [productType, setProductType] = useState('electronics');
   const [volume, setVolume] = useState('medium');
   const [distance, setDistance] = useState('medium');

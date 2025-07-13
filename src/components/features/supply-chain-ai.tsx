@@ -48,18 +48,31 @@ const StatCard = ({ icon: Icon, title, value, unit }: { icon: React.ElementType,
     </Card>
 );
 
-export default function SupplyChainAI() {
+interface SupplyChainAIProps {
+  onResult?: (result: OptimizeInventoryLevelsOutput) => void;
+}
+
+export default function SupplyChainAI({ onResult }: SupplyChainAIProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<OptimizeInventoryLevelsOutput | null>(null);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      produceType: "",
+      currentInventory: 0,
+      demandForecast: 0,
+      shelfLifeDays: 0,
+      leadTimeDays: 0,
+      storageCapacity: 0,
+    }
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsLoading(true);
     setResult(null);
+    onResult?.(null!); // Clear previous result in parent
     const { data: optimizationResult, error } = await handleOptimizeInventory(data);
     setIsLoading(false);
 
@@ -71,6 +84,7 @@ export default function SupplyChainAI() {
       });
     } else if (optimizationResult) {
       setResult(optimizationResult);
+      onResult?.(optimizationResult);
     }
   };
 

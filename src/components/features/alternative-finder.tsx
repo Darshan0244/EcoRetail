@@ -23,7 +23,11 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function AlternativeFinder() {
+interface AlternativeFinderProps {
+  onResult?: (result: FindSustainableAlternativeOutput) => void;
+}
+
+export default function AlternativeFinder({ onResult }: AlternativeFinderProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<FindSustainableAlternativeOutput | null>(null);
@@ -39,6 +43,7 @@ export default function AlternativeFinder() {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsLoading(true);
     setResult(null);
+    onResult?.(null!);
     const { data: alternativeResult, error } = await handleFindAlternative(data);
     setIsLoading(false);
 
@@ -50,6 +55,7 @@ export default function AlternativeFinder() {
       });
     } else if (alternativeResult) {
       setResult(alternativeResult);
+      onResult?.(alternativeResult);
     }
   };
 

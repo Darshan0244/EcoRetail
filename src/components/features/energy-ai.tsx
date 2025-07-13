@@ -34,18 +34,30 @@ const exampleData: FormValues = {
     equipmentData: "5 HVAC units (10 years old), LED lighting, 10 refrigeration units.",
 };
 
-export default function EnergyAI() {
+interface EnergyAIProps {
+  onResult?: (result: OptimizeEnergyConsumptionOutput) => void;
+}
+
+export default function EnergyAI({ onResult }: EnergyAIProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<OptimizeEnergyConsumptionOutput | null>(null);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      storeId: "",
+      historicalEnergyData: "",
+      weatherData: "",
+      occupancyData: "",
+      equipmentData: "",
+    }
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsLoading(true);
     setResult(null);
+    onResult?.(null!);
     const { data: optimizationResult, error } = await handleOptimizeEnergy(data);
     setIsLoading(false);
 
@@ -57,6 +69,7 @@ export default function EnergyAI() {
       });
     } else if (optimizationResult) {
       setResult(optimizationResult);
+      onResult?.(optimizationResult);
     }
   };
 

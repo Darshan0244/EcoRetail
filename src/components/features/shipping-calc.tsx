@@ -23,7 +23,11 @@ type FormValues = z.infer<typeof formSchema>;
 // Factor in kg of CO2 per ton-km. Source: EPA
 const EMISSION_FACTOR = 0.12; 
 
-export default function ShippingCalc() {
+interface ShippingCalcProps {
+  onResult?: (result: any) => void;
+}
+
+export default function ShippingCalc({ onResult }: ShippingCalcProps) {
   const { toast } = useToast();
   const [emissions, setEmissions] = useState<number | null>(null);
 
