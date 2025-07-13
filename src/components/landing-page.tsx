@@ -26,10 +26,10 @@ export function LandingPage() {
               layout="fill"
               objectFit="cover"
               data-ai-hint="eco packaging"
-              className="brightness-50"
+              className="brightness-75"
               unoptimized
             />
-            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 bg-black/40" />
         </div>
         
         {/* Header */}
