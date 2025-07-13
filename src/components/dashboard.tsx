@@ -36,6 +36,7 @@ import ShippingCalc from '@/components/features/shipping-calc';
 import AlternativeFinder from '@/components/features/alternative-finder';
 
 import { handleGenerateReport } from '@/app/actions';
+import type { GenerateReportOutput } from '@/ai/flows/generate-report';
 import { useToast } from '@/hooks/use-toast';
 
 const navItems = [
@@ -48,11 +49,15 @@ const navItems = [
   { id: 'alternative-finder', label: 'Alternative Finder', icon: Sparkles, component: <AlternativeFinder /> },
 ];
 
+interface ReportData extends GenerateReportOutput {
+  title: string;
+}
+
 export function Dashboard() {
   const { toast } = useToast();
   const [activeFeature, setActiveFeature] = useState('supply-chain-ai');
   const [isReportLoading, setIsReportLoading] = useState(false);
-  const [reportData, setReportData] = useState<{ title: string; content: string } | null>(null);
+  const [reportData, setReportData] = useState<ReportData | null>(null);
   const featureContentRef = useRef<HTMLDivElement>(null);
 
   const activeComponent = useMemo(() => {
@@ -85,7 +90,8 @@ export function Dashboard() {
     } else if (data) {
       setReportData({
         title: `${activeFeatureLabel} Report`,
-        content: data.report,
+        report: data.report,
+        audioDataUri: data.audioDataUri,
       });
     }
   };
@@ -133,7 +139,8 @@ export function Dashboard() {
           open={!!reportData}
           onOpenChange={(isOpen) => !isOpen && setReportData(null)}
           title={reportData.title}
-          content={reportData.content}
+          content={reportData.report}
+          audioDataUri={reportData.audioDataUri}
         />
       )}
     </SidebarProvider>
