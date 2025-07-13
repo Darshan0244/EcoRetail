@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -105,32 +106,29 @@ const generateReportFlow = ai.defineFlow(
     outputSchema: GenerateReportOutputSchema,
   },
   async (input) => {
-    // Generate the text report and audio report in parallel to reduce latency.
-    const [textResult, audioResult] = await Promise.all([
-      // Text generation
-      reportPrompt(input),
-
-      // Audio generation - we use a simpler prompt for audio for speed and clarity.
-      ai.generate({
-        model: 'googleai/gemini-2.5-flash-preview-tts',
-        config: {
-          responseModalities: ['AUDIO'],
-          speechConfig: {
-            voiceConfig: {
-              prebuiltVoiceConfig: {voiceName: 'Algenib'},
-            },
-          },
-        },
-        prompt: `Here is a summary report for ${input.featureTitle}.`,
-      })
-    ]);
-
-    const { output: textOutput } = textResult;
+    // Step 1: Generate the text report.
+    const { output: textOutput } = await reportPrompt(input);
     if (!textOutput) {
       throw new Error('Failed to generate text report.');
     }
 
-    const { media } = audioResult;
+    // Step 2: Use the generated text to create the audio report.
+    // We strip HTML tags to make the audio sound more natural.
+    const audioPromptText = textOutput.report.replace(/<[^>]*>/g, ' ');
+
+    const { media } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash-preview-tts',
+      config: {
+        responseModalities: ['AUDIO'],
+        speechConfig: {
+          voiceConfig: {
+            prebuiltVoiceConfig: { voiceName: 'Algenib' },
+          },
+        },
+      },
+      prompt: audioPromptText,
+    });
+    
     if (!media?.url) {
       throw new Error('Failed to generate audio report.');
     }
@@ -141,6 +139,7 @@ const generateReportFlow = ai.defineFlow(
     );
     const wavBase64 = await toWav(audioBuffer);
 
+    // Step 3: Return both the text report and the audio data.
     return {
       report: textOutput.report,
       audioDataUri: `data:audio/wav;base64,${wavBase64}`,
