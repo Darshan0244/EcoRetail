@@ -33,13 +33,6 @@ export default function EnergyAI() {
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-        storeId: 'STORE-001',
-        historicalEnergyData: 'Avg 500kWh/day, peaks in summer afternoons.',
-        weatherData: '25°C, sunny, high humidity.',
-        occupancyData: 'Peak traffic 12-3 PM on weekdays.',
-        equipmentData: '5 HVAC units (10 years old), LED lighting, 10 refrigeration units.'
-    }
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -74,27 +67,27 @@ export default function EnergyAI() {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="storeId">Store ID</Label>
-                <Input id="storeId" {...register('storeId')} />
+                <Input id="storeId" {...register('storeId')} placeholder="e.g., STORE-001" />
                 {errors.storeId && <p className="text-destructive text-sm">{errors.storeId.message}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="historicalEnergyData">Historical Energy Data</Label>
-                <Textarea id="historicalEnergyData" {...register('historicalEnergyData')} />
+                <Textarea id="historicalEnergyData" {...register('historicalEnergyData')} placeholder="e.g., Avg 500kWh/day, peaks in summer afternoons." />
                 {errors.historicalEnergyData && <p className="text-destructive text-sm">{errors.historicalEnergyData.message}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="weatherData">Weather Data</Label>
-                <Textarea id="weatherData" {...register('weatherData')} />
+                <Textarea id="weatherData" {...register('weatherData')} placeholder="e.g., 25°C, sunny, high humidity." />
                 {errors.weatherData && <p className="text-destructive text-sm">{errors.weatherData.message}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="occupancyData">Occupancy Data</Label>
-                <Textarea id="occupancyData" {...register('occupancyData')} />
+                <Textarea id="occupancyData" {...register('occupancyData')} placeholder="e.g., Peak traffic 12-3 PM on weekdays." />
                 {errors.occupancyData && <p className="text-destructive text-sm">{errors.occupancyData.message}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="equipmentData">Equipment Data</Label>
-                <Textarea id="equipmentData" {...register('equipmentData')} />
+                <Textarea id="equipmentData" {...register('equipmentData')} placeholder="e.g., 5 HVAC units (10 years old), LED lighting, 10 refrigeration units." />
                 {errors.equipmentData && <p className="text-destructive text-sm">{errors.equipmentData.message}</p>}
               </div>
             </CardContent>
@@ -126,14 +119,14 @@ export default function EnergyAI() {
               </div>
             )}
             {result && (
-              <div className="space-y-6 text-black">
+              <div className="space-y-6 text-foreground">
                 <div>
-                  <h3 className="font-semibold text-lg">Energy Saving Recommendations</h3>
-                  <p className="whitespace-pre-line">{result.energySavingRecommendations}</p>
+                  <h3 className="font-semibold text-lg text-foreground">Energy Saving Recommendations</h3>
+                  <div className="prose prose-sm prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground" dangerouslySetInnerHTML={{__html: result.energySavingRecommendations.replace(/\*/g, '•').replace(/\n/g, '<br />') }} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg">Estimated Savings</h3>
-                  <p className="">{result.estimatedSavings}</p>
+                  <h3 className="font-semibold text-lg text-foreground">Estimated Savings</h3>
+                  <p className="text-foreground">{result.estimatedSavings}</p>
                 </div>
               </div>
             )}

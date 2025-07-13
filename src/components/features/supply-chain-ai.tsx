@@ -46,14 +46,6 @@ export default function SupplyChainAI() {
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-        produceType: "Tomatoes",
-        currentInventory: 500,
-        demandForecast: 2000,
-        shelfLifeDays: 14,
-        leadTimeDays: 2,
-        storageCapacity: 3000
-    }
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -88,32 +80,32 @@ export default function SupplyChainAI() {
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="produceType">Produce Type</Label>
-                <Input id="produceType" {...register('produceType')} />
+                <Input id="produceType" {...register('produceType')} placeholder="e.g., Tomatoes" />
                 {errors.produceType && <p className="text-destructive text-sm">{errors.produceType.message}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="currentInventory">Current Inventory (units)</Label>
-                <Input id="currentInventory" type="number" {...register('currentInventory')} />
+                <Input id="currentInventory" type="number" {...register('currentInventory')} placeholder="e.g., 500" />
                 {errors.currentInventory && <p className="text-destructive text-sm">{errors.currentInventory.message}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="demandForecast">Demand Forecast (units)</Label>
-                <Input id="demandForecast" type="number" {...register('demandForecast')} />
+                <Input id="demandForecast" type="number" {...register('demandForecast')} placeholder="e.g., 2000" />
                 {errors.demandForecast && <p className="text-destructive text-sm">{errors.demandForecast.message}</p>}
               </div>
                <div className="space-y-2">
                 <Label htmlFor="shelfLifeDays">Shelf Life (days)</Label>
-                <Input id="shelfLifeDays" type="number" {...register('shelfLifeDays')} />
+                <Input id="shelfLifeDays" type="number" {...register('shelfLifeDays')} placeholder="e.g., 14" />
                 {errors.shelfLifeDays && <p className="text-destructive text-sm">{errors.shelfLifeDays.message}</p>}
               </div>
                <div className="space-y-2">
                 <Label htmlFor="leadTimeDays">Lead Time (days)</Label>
-                <Input id="leadTimeDays" type="number" {...register('leadTimeDays')} />
+                <Input id="leadTimeDays" type="number" {...register('leadTimeDays')} placeholder="e.g., 2" />
                 {errors.leadTimeDays && <p className="text-destructive text-sm">{errors.leadTimeDays.message}</p>}
               </div>
                <div className="space-y-2">
                 <Label htmlFor="storageCapacity">Storage Capacity (units)</Label>
-                <Input id="storageCapacity" type="number" {...register('storageCapacity')} />
+                <Input id="storageCapacity" type="number" {...register('storageCapacity')} placeholder="e.g., 3000" />
                 {errors.storageCapacity && <p className="text-destructive text-sm">{errors.storageCapacity.message}</p>}
               </div>
             </CardContent>
