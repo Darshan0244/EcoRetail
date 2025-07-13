@@ -16,7 +16,7 @@ import { Skeleton } from './ui/skeleton';
 import { handleGenerateReport } from '@/app/actions';
 import { type GenerateReportOutput } from '@/ai/flows/generate-report';
 import { useToast } from '@/hooks/use-toast';
-import { Bot, Music4, Mic } from 'lucide-react';
+import { Bot, Mic } from 'lucide-react';
 
 interface ReportDialogProps {
   isOpen: boolean;
