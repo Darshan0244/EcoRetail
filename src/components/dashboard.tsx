@@ -12,7 +12,9 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
+import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/logo';
+import { useToast } from '@/hooks/use-toast';
 import {
   Calculator,
   Leaf,
@@ -21,8 +23,9 @@ import {
   Truck,
   Zap,
   Sparkles,
+  FileText,
 } from 'lucide-react';
-
+import { ReportDialog } from '@/components/report-dialog';
 import SupplyChainAI from '@/components/features/supply-chain-ai';
 import CarbonDisplay from '@/components/features/carbon-display';
 import SourceVerification from '@/components/features/source-verification';
@@ -41,21 +44,50 @@ const navItems = [
   { id: 'alternative-finder', label: 'Alternative Finder', icon: Sparkles, component: AlternativeFinder },
 ];
 
+const reportableFeatures = ['supply-chain-ai', 'energy-ai', 'alternative-finder'];
+
 export function Dashboard() {
   const [activeFeature, setActiveFeature] = useState('supply-chain-ai');
+  const [reportData, setReportData] = useState<any>(null);
+  const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
+  const { toast } = useToast();
 
   const activeNavItem = useMemo(() => {
     return navItems.find(item => item.id === activeFeature) || navItems[0];
   }, [activeFeature]);
 
-  const activeComponent = useMemo(() => {
-    const Component = activeNavItem.component;
-    return <Component />;
-  }, [activeNavItem]);
-
   const handleFeatureChange = (featureId: string) => {
     setActiveFeature(featureId);
+    setReportData(null); // Reset report data when changing features
   };
+
+  const activeComponent = useMemo(() => {
+    const Component = activeNavItem.component;
+    return <Component onResult={setReportData} />;
+  }, [activeNavItem]);
+
+  const isReportable = useMemo(() => {
+    return reportableFeatures.includes(activeFeature);
+  }, [activeFeature]);
+
+  const getReport = () => {
+    if (!isReportable) return;
+
+    if (!reportData) {
+      toast({
+        variant: 'destructive',
+        title: 'No Action Performed',
+        description: 'Please generate a result on this page before getting a report.',
+      });
+      return;
+    }
+    setIsReportDialogOpen(true);
+  };
+  
+  const contentSummary = useMemo(() => {
+    if (!reportData) return '';
+    return JSON.stringify(reportData);
+  }, [reportData]);
 
   return (
     <SidebarProvider>
@@ -84,12 +116,29 @@ export function Dashboard() {
         <SidebarInset className="flex-1 flex flex-col">
             <header className="flex items-center justify-between p-4 border-b md:justify-end">
                 <SidebarTrigger className="md:hidden" />
+                 <Button onClick={getReport} disabled={!isReportable}>
+                    <FileText className="mr-2" />
+                    Get Report
+                 </Button>
             </header>
             <main className="flex-1 overflow-y-auto bg-background">
               {activeComponent}
             </main>
         </SidebarInset>
       </div>
+      {isReportable && (
+         <ReportDialog
+            isOpen={isReportDialogOpen}
+            onOpenChange={(open) => {
+                if (!open) {
+                    setReportData(null);
+                }
+                setIsReportDialogOpen(open);
+            }}
+            featureTitle={activeNavItem.label}
+            contentSummary={contentSummary}
+        />
+      )}
     </SidebarProvider>
   );
 }
