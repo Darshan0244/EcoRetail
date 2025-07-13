@@ -137,9 +137,9 @@ export default function EnergyAI() {
               <div className="space-y-6">
                 <div>
                   <h3 className="font-semibold text-lg text-primary">Energy Saving Recommendations</h3>
-                   <div 
-                    className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground" 
-                    dangerouslySetInnerHTML={{__html: result.energySavingRecommendations.replace(/\n- /g, '</li><li class="pl-4">').replace(/\n/g, '<br />') }} 
+                   <div
+                    className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground prose-h3:text-primary text-foreground"
+                    dangerouslySetInnerHTML={{__html: result.energySavingRecommendations }}
                    />
                 </div>
                 <div>
