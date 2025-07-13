@@ -16,7 +16,7 @@ import { Skeleton } from './ui/skeleton';
 import { handleGenerateReport } from '@/app/actions';
 import { type GenerateReportOutput } from '@/ai/flows/generate-report';
 import { useToast } from '@/hooks/use-toast';
-import { Bot, Mic } from 'lucide-react';
+import { Bot } from 'lucide-react';
 
 interface ReportDialogProps {
   isOpen: boolean;
@@ -71,7 +71,7 @@ export function ReportDialog({
             <Bot /> AI-Generated Report
           </DialogTitle>
           <DialogDescription>
-            An AI summary and audio report for: <strong>{featureTitle}</strong>
+            An AI summary for: <strong>{featureTitle}</strong>
           </DialogDescription>
         </DialogHeader>
         
@@ -83,7 +83,6 @@ export function ReportDialog({
                 <Skeleton className="h-4 w-full" />
                 <Skeleton className="h-4 w-5/6" />
                 <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-12 w-full mt-4" />
               </div>
             )}
             {!isLoading && !result && (
@@ -97,16 +96,6 @@ export function ReportDialog({
                   className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground"
                   dangerouslySetInnerHTML={{ __html: result.reportText }}
                 />
-                
-                {result.reportAudio && (
-                  <div className="mt-6">
-                    <h4 className="font-semibold text-primary flex items-center gap-2 mb-2"><Mic /> Audio Summary</h4>
-                    <audio controls className="w-full">
-                      <source src={result.reportAudio} type="audio/wav" />
-                      Your browser does not support the audio element.
-                    </audio>
-                  </div>
-                )}
               </div>
             )}
             </div>
