@@ -38,12 +38,13 @@ const generateReportTextPrompt = ai.definePrompt({
     output: { schema: z.object({ reportText: GenerateReportOutputSchema.shape.reportText }) },
     prompt: `You are a sustainability consultant AI for EcoRetail.
     Your task is to generate a very concise summary report based on the user's interaction with a specific feature.
+    Keep the report to a maximum of 3-4 sentences and one short bulleted list if necessary.
     
     The user was on the "{{featureTitle}}" page.
     Here is the data or result they generated:
     "{{contentSummary}}"
 
-    Based on this, provide a helpful summary. Explain the key results and their implications for sustainability. Keep the report to a maximum of 3-4 sentences and one short bulleted list if necessary.
+    Based on this, provide a helpful summary. Explain the key results and their implications for sustainability.
     Format the report as an HTML string. Use <p> tags for paragraphs and <ul><li> tags for lists.
     `,
 });
