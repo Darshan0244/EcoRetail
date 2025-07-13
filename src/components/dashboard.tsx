@@ -40,13 +40,13 @@ import type { GenerateReportOutput } from '@/ai/flows/generate-report';
 import { useToast } from '@/hooks/use-toast';
 
 const navItems = [
-  { id: 'supply-chain-ai', label: 'Supply Chain AI', icon: Truck, component: <SupplyChainAI /> },
-  { id: 'carbon-display', label: 'Carbon Display', icon: Leaf, component: <CarbonDisplay /> },
-  { id: 'source-verification', label: 'Source Verification', icon: ShieldCheck, component: <SourceVerification /> },
-  { id: 'energy-ai', label: 'Energy Management AI', icon: Zap, component: <EnergyAI /> },
-  { id: 'package-guide', label: 'Packaging Guide', icon: Package, component: <PackageGuide /> },
-  { id: 'shipping-calc', label: 'Shipping Calculator', icon: Calculator, component: <ShippingCalc /> },
-  { id: 'alternative-finder', label: 'Alternative Finder', icon: Sparkles, component: <AlternativeFinder /> },
+  { id: 'supply-chain-ai', label: 'Supply Chain AI', icon: Truck, component: <SupplyChainAI />, description: 'This feature uses AI to predict and optimize inventory levels to minimize waste and reduce carbon emissions from transportation.' },
+  { id: 'carbon-display', label: 'Carbon Display', icon: Leaf, component: <CarbonDisplay />, description: 'This feature provides an interactive visual display to understand the carbon footprint of various products, helping users make informed, sustainable decisions.' },
+  { id: 'source-verification', label: 'Source Verification', icon: ShieldCheck, component: <SourceVerification />, description: 'This feature allows users to verify the ethical and environmental claims of suppliers using a transparent ledger, tracing a product\'s journey from source to store.' },
+  { id: 'energy-ai', label: 'Energy Management AI', icon: Zap, component: <EnergyAI />, description: 'This feature uses AI to analyze store data and provide recommendations for optimizing energy consumption, reducing both costs and environmental impact.' },
+  { id: 'package-guide', label: 'Packaging Guide', icon: Package, component: <PackageGuide />, description: 'This feature helps users find the perfect sustainable packaging for their products based on needs like product type, volume, and shipping distance.' },
+  { id: 'shipping-calc', label: 'Shipping Calculator', icon: Calculator, component: <ShippingCalc />, description: 'This feature calculates and allows for the offsetting of carbon emissions from shipments, promoting carbon-neutral shipping.' },
+  { id: 'alternative-finder', label: 'Alternative Finder', icon: Sparkles, component: <AlternativeFinder />, description: 'This feature uses AI to suggest more eco-friendly alternatives to common products, complete with a justification and a generated image.' },
 ];
 
 interface ReportData extends GenerateReportOutput {
@@ -72,7 +72,12 @@ export function Dashboard() {
     setIsReportLoading(true);
     setReportData(null);
   
-    const contentSummary = featureContentRef.current?.innerText || 'No content available.';
+    const activeNavItem = navItems.find(item => item.id === activeFeature);
+    // Prioritize the innerText if it's meaningful, otherwise use the feature's general description.
+    const pageContent = featureContentRef.current?.innerText;
+    const contentSummary = (pageContent && pageContent.length > 200) 
+      ? pageContent 
+      : activeNavItem?.description || 'No content available.';
   
     const { data, error } = await handleGenerateReport({
       featureTitle: activeFeatureLabel,
