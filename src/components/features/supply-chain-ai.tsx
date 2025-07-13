@@ -49,7 +49,7 @@ const StatCard = ({ icon: Icon, title, value, unit }: { icon: React.ElementType,
 );
 
 interface SupplyChainAIProps {
-  onResult?: (result: OptimizeInventoryLevelsOutput) => void;
+  onResult?: (result: OptimizeInventoryLevelsOutput | null) => void;
 }
 
 export default function SupplyChainAI({ onResult }: SupplyChainAIProps) {
@@ -72,7 +72,7 @@ export default function SupplyChainAI({ onResult }: SupplyChainAIProps) {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsLoading(true);
     setResult(null);
-    onResult?.(null!); // Clear previous result in parent
+    onResult?.(null);
     const { data: optimizationResult, error } = await handleOptimizeInventory(data);
     setIsLoading(false);
 

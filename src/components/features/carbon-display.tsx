@@ -31,7 +31,7 @@ const products = {
 type ProductKey = keyof typeof products;
 
 interface CarbonDisplayProps {
-  onResult?: (result: any) => void; // Not used, but keeps component signature consistent
+  onResult?: (result: any) => void;
 }
 
 export default function CarbonDisplay({ onResult }: CarbonDisplayProps) {

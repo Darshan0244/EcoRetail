@@ -35,7 +35,7 @@ const exampleData: FormValues = {
 };
 
 interface EnergyAIProps {
-  onResult?: (result: OptimizeEnergyConsumptionOutput) => void;
+  onResult?: (result: OptimizeEnergyConsumptionOutput | null) => void;
 }
 
 export default function EnergyAI({ onResult }: EnergyAIProps) {
@@ -57,7 +57,7 @@ export default function EnergyAI({ onResult }: EnergyAIProps) {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsLoading(true);
     setResult(null);
-    onResult?.(null!);
+    onResult?.(null);
     const { data: optimizationResult, error } = await handleOptimizeEnergy(data);
     setIsLoading(false);
 
