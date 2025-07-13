@@ -16,7 +16,7 @@ import { Skeleton } from './ui/skeleton';
 import { handleGenerateReport } from '@/app/actions';
 import { type GenerateReportOutput } from '@/ai/flows/generate-report';
 import { useToast } from '@/hooks/use-toast';
-import { Bot, Volume2 } from 'lucide-react';
+import { Bot } from 'lucide-react';
 
 interface ReportDialogProps {
   isOpen: boolean;
@@ -92,20 +92,10 @@ export function ReportDialog({
                 </div>
               )}
               {result && (
-                <div className="space-y-4">
-                  {result.reportAudio && (
-                     <div className="flex items-center gap-3 p-3 rounded-md bg-muted">
-                        <Volume2 className="text-primary"/>
-                        <audio controls src={result.reportAudio} className="w-full h-10">
-                            Your browser does not support the audio element.
-                        </audio>
-                     </div>
-                  )}
-                  <div
-                    className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground"
-                    dangerouslySetInnerHTML={{ __html: result.reportText }}
-                  />
-                </div>
+                <div
+                  className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground"
+                  dangerouslySetInnerHTML={{ __html: result.reportText }}
+                />
               )}
             </div>
           </ScrollArea>
