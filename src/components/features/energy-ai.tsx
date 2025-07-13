@@ -33,6 +33,13 @@ export default function EnergyAI() {
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+        storeId: '',
+        historicalEnergyData: '',
+        weatherData: '',
+        occupancyData: '',
+        equipmentData: '',
+    }
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -119,13 +126,16 @@ export default function EnergyAI() {
               </div>
             )}
             {result && (
-              <div className="space-y-6 text-foreground">
+              <div className="space-y-6">
                 <div>
-                  <h3 className="font-semibold text-lg text-foreground">Energy Saving Recommendations</h3>
-                  <div className="prose prose-sm prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground" dangerouslySetInnerHTML={{__html: result.energySavingRecommendations.replace(/\*/g, '•').replace(/\n/g, '<br />') }} />
+                  <h3 className="font-semibold text-lg text-primary">Energy Saving Recommendations</h3>
+                   <div 
+                    className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground" 
+                    dangerouslySetInnerHTML={{__html: result.energySavingRecommendations.replace(/\n/g, '<br />') }} 
+                   />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-foreground">Estimated Savings</h3>
+                  <h3 className="font-semibold text-lg text-primary">Estimated Savings</h3>
                   <p className="text-foreground">{result.estimatedSavings}</p>
                 </div>
               </div>

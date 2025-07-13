@@ -18,7 +18,7 @@ const GenerateReportInputSchema = z.object({
 export type GenerateReportInput = z.infer<typeof GenerateReportInputSchema>;
 
 const GenerateReportOutputSchema = z.object({
-  report: z.string().describe('A concise, well-formatted report summarizing the provided content. Use markdown for lists and bolding.'),
+  report: z.string().describe('A concise, well-formatted report summarizing the provided content. Use HTML tags like <strong> for bolding and <p> for paragraphs.'),
 });
 export type GenerateReportOutput = z.infer<typeof GenerateReportOutputSchema>;
 
@@ -41,7 +41,20 @@ Here is the data currently displayed on their screen:
 {{contentSummary}}
 ---
 
-Please generate a professional, easy-to-read report summarizing this information. Use markdown for formatting, such as lists and bolding, to make the report clear and scannable.`,
+Please generate a professional, easy-to-read report summarizing this information. Use HTML for formatting. Use <p> tags for paragraphs and <strong> tags for bolding. Do not use markdown. For example:
+
+<p>This report summarizes the AI-powered inventory optimization for <strong>Tomatoes</strong> to minimize waste and reduce carbon emissions.</p>
+
+<strong>Key Findings:</strong>
+<ul>
+  <li><strong>Optimal Inventory:</strong> 2000 units</li>
+  <li><strong>Recommended Order:</strong> 1500 units</li>
+  <li><strong>Waste Reduction:</strong> 15%</li>
+  <li><strong>CO₂ Reduction:</strong> 5%</li>
+</ul>
+
+<strong>Justification:</strong>
+<p>The AI recommends maintaining an optimal inventory level of 2000 units. Ordering 1500 units will bring the inventory up to the expected demand, while accounting for product shelf life and lead time. This strategy is projected to significantly reduce potential waste and unnecessary transportation emissions.</p>`,
 });
 
 const generateReportFlow = ai.defineFlow(

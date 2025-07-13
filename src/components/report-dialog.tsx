@@ -26,8 +26,8 @@ export function ReportDialog({ open, onOpenChange, title, content }: ReportDialo
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription asChild>
             <div 
-              className="prose prose-sm prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground prose-strong:text-foreground text-foreground pt-4"
-              dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br />') }} 
+              className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground prose-strong:text-foreground text-foreground pt-4"
+              dangerouslySetInnerHTML={{ __html: content }} 
             />
           </AlertDialogDescription>
         </AlertDialogHeader>
