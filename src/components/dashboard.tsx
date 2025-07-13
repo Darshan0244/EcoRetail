@@ -24,6 +24,7 @@ import {
   Zap,
   PanelLeft,
   Loader2,
+  Sparkles,
 } from 'lucide-react';
 
 import SupplyChainAI from '@/components/features/supply-chain-ai';
@@ -32,6 +33,8 @@ import SourceVerification from '@/components/features/source-verification';
 import EnergyAI from '@/components/features/energy-ai';
 import PackageGuide from '@/components/features/package-guide';
 import ShippingCalc from '@/components/features/shipping-calc';
+import AlternativeFinder from '@/components/features/alternative-finder';
+
 import { handleGenerateReport } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 
@@ -42,6 +45,7 @@ const navItems = [
   { id: 'energy-ai', label: 'Energy Management AI', icon: Zap, component: <EnergyAI /> },
   { id: 'package-guide', label: 'Packaging Guide', icon: Package, component: <PackageGuide /> },
   { id: 'shipping-calc', label: 'Shipping Calculator', icon: Calculator, component: <ShippingCalc /> },
+  { id: 'alternative-finder', label: 'Alternative Finder', icon: Sparkles, component: <AlternativeFinder /> },
 ];
 
 export function Dashboard() {

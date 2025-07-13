@@ -16,6 +16,12 @@ import {
   type GenerateReportInput,
   type GenerateReportOutput,
 } from '@/ai/flows/generate-report';
+import {
+  findSustainableAlternative,
+  type FindSustainableAlternativeInput,
+  type FindSustainableAlternativeOutput,
+} from '@/ai/flows/find-sustainable-alternative';
+
 import { z } from 'zod';
 
 const supplyChainSchema = z.object({
@@ -91,5 +97,27 @@ export async function handleGenerateReport(
     } catch (e) {
         console.error(e);
         return { data: null, error: 'An unexpected error occurred while generating the report.' };
+    }
+}
+
+const findAlternativeSchema = z.object({
+    productDescription: z.string().min(10, 'Please provide a more detailed product description.'),
+});
+
+export async function handleFindAlternative(
+    values: FindSustainableAlternativeInput
+): Promise<{ data: FindSustainableAlternativeOutput | null; error: string | null }> {
+    const validation = findAlternativeSchema.safeParse(values);
+    if (!validation.success) {
+        const errorMessages = validation.error.errors.map((e) => e.message).join(', ');
+        return { data: null, error: errorMessages };
+    }
+
+    try {
+        const result = await findSustainableAlternative(validation.data);
+        return { data: result, error: null };
+    } catch (e) {
+        console.error(e);
+        return { data: null, error: 'An unexpected error occurred while finding an alternative.' };
     }
 }
