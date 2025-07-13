@@ -120,7 +120,7 @@ export default function EnergyAI() {
               </div>
             )}
             {!isLoading && !result && (
-              <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground p-8 rounded-lg border-2 border-dashed">
+              <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground p-8 rounded-lg">
                 <Lightbulb className="h-12 w-12" />
                 <p className="mt-4">Your energy saving insights are waiting.</p>
               </div>
@@ -128,12 +128,12 @@ export default function EnergyAI() {
             {result && (
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-semibold text-lg text-secondary-foreground">Energy Saving Recommendations</h3>
-                  <p className="text-muted-foreground whitespace-pre-line">{result.energySavingRecommendations}</p>
+                  <h3 className="font-semibold text-lg text-black">Energy Saving Recommendations</h3>
+                  <p className="text-black whitespace-pre-line">{result.energySavingRecommendations}</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-secondary-foreground">Estimated Savings</h3>
-                  <p className="text-muted-foreground">{result.estimatedSavings}</p>
+                  <h3 className="font-semibold text-lg text-black">Estimated Savings</h3>
+                  <p className="text-black">{result.estimatedSavings}</p>
                 </div>
               </div>
             )}
