@@ -55,7 +55,7 @@ Here is the data currently displayed on their screen:
 {{contentSummary}}
 ---
 
-Please generate a professional, easy-to-read report summarizing this information. Use HTML for formatting. Use <p> tags for paragraphs and <strong> tags for bolding. Do not use markdown. For example:
+Please generate a professional, easy-to-read report summarizing this information. Use HTML for formatting. Use <p> tags for paragraphs, <ul><li> for lists, and <strong> tags for bolding. Do not use markdown. For example:
 
 <p>This report summarizes the AI-powered inventory optimization for <strong>Tomatoes</strong> to minimize waste and reduce carbon emissions.</p>
 
@@ -105,29 +105,32 @@ const generateReportFlow = ai.defineFlow(
     outputSchema: GenerateReportOutputSchema,
   },
   async (input) => {
-    // Generate the text report first
-    const {output: textOutput} = await reportPrompt(input);
+    // Generate the text report and audio report in parallel to reduce latency.
+    const [textResult, audioResult] = await Promise.all([
+      // Text generation
+      reportPrompt(input),
+
+      // Audio generation - we use a simpler prompt for audio for speed and clarity.
+      ai.generate({
+        model: 'googleai/gemini-2.5-flash-preview-tts',
+        config: {
+          responseModalities: ['AUDIO'],
+          speechConfig: {
+            voiceConfig: {
+              prebuiltVoiceConfig: {voiceName: 'Algenib'},
+            },
+          },
+        },
+        prompt: `Here is a summary report for ${input.featureTitle}.`,
+      })
+    ]);
+
+    const { output: textOutput } = textResult;
     if (!textOutput) {
       throw new Error('Failed to generate text report.');
     }
 
-    // Now, generate the audio from the text report
-    // We strip HTML tags for a cleaner audio output.
-    const audioPrompt = textOutput.report.replace(/<[^>]*>?/gm, '');
-
-    const {media} = await ai.generate({
-      model: 'googleai/gemini-2.5-flash-preview-tts',
-      config: {
-        responseModalities: ['AUDIO'],
-        speechConfig: {
-          voiceConfig: {
-            prebuiltVoiceConfig: {voiceName: 'Algenib'},
-          },
-        },
-      },
-      prompt: audioPrompt,
-    });
-
+    const { media } = audioResult;
     if (!media?.url) {
       throw new Error('Failed to generate audio report.');
     }
