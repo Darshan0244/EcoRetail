@@ -41,7 +41,7 @@ import type { OptimizeEnergyConsumptionOutput } from '@/ai/flows/optimize-energy
 import type { FindSustainableAlternativeOutput } from '@/ai/flows/find-sustainable-alternative';
 import { useToast } from '@/hooks/use-toast';
 
-type ReportableResult = OptimizeInventoryLevelsOutput | OptimizeEnergyConsumptionOutput | FindSustainableAlternativeOutput;
+type ReportableResult = OptimizeInventoryLevelsOutput | OptimizeEnergyConsumptionOutput | FindSustainableAlternativeOutput | null;
 
 const navItems = [
   { id: 'supply-chain-ai', label: 'Supply Chain AI', icon: Truck, component: SupplyChainAI, reportable: true },
@@ -62,7 +62,7 @@ export function Dashboard() {
   const [activeFeature, setActiveFeature] = useState('supply-chain-ai');
   const [isReportLoading, setIsReportLoading] = useState(false);
   const [reportData, setReportData] = useState<ReportData | null>(null);
-  const [lastResult, setLastResult] = useState<ReportableResult | null>(null);
+  const [lastResult, setLastResult] = useState<ReportableResult>(null);
 
   const activeNavItem = useMemo(() => {
     return navItems.find(item => item.id === activeFeature) || navItems[0];
@@ -115,6 +115,12 @@ export function Dashboard() {
     setLastResult(null); // Reset last result when changing features
   };
 
+  const handleDialogClose = (isOpen: boolean) => {
+    if (!isOpen) {
+        setReportData(null);
+    }
+  }
+
   return (
     <SidebarProvider>
       <div className="flex min-h-screen">
@@ -160,7 +166,7 @@ export function Dashboard() {
       {reportData && (
         <ReportDialog
           open={!!reportData}
-          onOpenChange={(isOpen) => !isOpen && setReportData(null)}
+          onOpenChange={handleDialogClose}
           title={reportData.title}
           content={reportData.report}
           audioDataUri={reportData.audioDataUri}
