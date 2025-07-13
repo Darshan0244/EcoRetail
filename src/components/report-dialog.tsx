@@ -16,7 +16,7 @@ import { Skeleton } from './ui/skeleton';
 import { handleGenerateReport } from '@/app/actions';
 import { type GenerateReportOutput } from '@/ai/flows/generate-report';
 import { useToast } from '@/hooks/use-toast';
-import { Bot } from 'lucide-react';
+import { Bot, Volume2 } from 'lucide-react';
 
 interface ReportDialogProps {
   isOpen: boolean;
@@ -76,34 +76,42 @@ export function ReportDialog({
         </DialogHeader>
         
         <div className="flex-1 relative min-h-0">
-            <ScrollArea className="h-full">
-                <div className="py-4 pr-6">
-                {isLoading && (
-                  <div className="space-y-4">
-                    <Skeleton className="h-6 w-3/4" />
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-5/6" />
-                    <Skeleton className="h-4 w-full" />
-                  </div>
-                )}
-                {!isLoading && !result && (
-                  <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground p-8 rounded-lg border-2 border-dashed">
-                    <p>Generating your report...</p>
-                  </div>
-                )}
-                {result && (
-                  <div className="space-y-4">
-                    <div
-                      className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground"
-                      dangerouslySetInnerHTML={{ __html: result.reportText }}
-                    />
-                  </div>
-                )}
+          <ScrollArea className="h-full">
+            <div className="py-4 pr-6">
+              {isLoading && (
+                <div className="space-y-4">
+                  <Skeleton className="h-6 w-3/4" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-5/6" />
+                  <Skeleton className="h-4 w-full" />
                 </div>
-            </ScrollArea>
+              )}
+              {!isLoading && !result && (
+                <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground p-8 rounded-lg border-2 border-dashed">
+                  <p>Generating your report...</p>
+                </div>
+              )}
+              {result && (
+                <div className="space-y-4">
+                  {result.reportAudio && (
+                     <div className="flex items-center gap-3 p-3 rounded-md bg-muted">
+                        <Volume2 className="text-primary"/>
+                        <audio controls src={result.reportAudio} className="w-full h-10">
+                            Your browser does not support the audio element.
+                        </audio>
+                     </div>
+                  )}
+                  <div
+                    className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground"
+                    dangerouslySetInnerHTML={{ __html: result.reportText }}
+                  />
+                </div>
+              )}
+            </div>
+          </ScrollArea>
         </div>
 
-        <DialogFooter className="flex-shrink-0">
+        <DialogFooter className="flex-shrink-0 pt-4">
           <Button variant="outline" onClick={handleClose}>
             Close
           </Button>
