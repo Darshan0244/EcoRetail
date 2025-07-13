@@ -75,33 +75,35 @@ export function ReportDialog({
           </DialogDescription>
         </DialogHeader>
         
-        <ScrollArea className="flex-grow pr-4 -mr-4">
-            <div className="py-4">
-            {isLoading && (
-              <div className="space-y-4">
-                <Skeleton className="h-6 w-3/4" />
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-5/6" />
-                <Skeleton className="h-4 w-full" />
-              </div>
-            )}
-            {!isLoading && !result && (
-              <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground p-8 rounded-lg border-2 border-dashed">
-                <p>Generating your report...</p>
-              </div>
-            )}
-            {result && (
-              <div className="space-y-4">
-                <div
-                  className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground"
-                  dangerouslySetInnerHTML={{ __html: result.reportText }}
-                />
-              </div>
-            )}
-            </div>
-        </ScrollArea>
+        <div className="flex-1 relative min-h-0">
+            <ScrollArea className="h-full">
+                <div className="py-4 pr-6">
+                {isLoading && (
+                  <div className="space-y-4">
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-5/6" />
+                    <Skeleton className="h-4 w-full" />
+                  </div>
+                )}
+                {!isLoading && !result && (
+                  <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground p-8 rounded-lg border-2 border-dashed">
+                    <p>Generating your report...</p>
+                  </div>
+                )}
+                {result && (
+                  <div className="space-y-4">
+                    <div
+                      className="prose prose-sm max-w-none prose-p:text-foreground prose-ul:text-foreground prose-li:text-foreground text-foreground"
+                      dangerouslySetInnerHTML={{ __html: result.reportText }}
+                    />
+                  </div>
+                )}
+                </div>
+            </ScrollArea>
+        </div>
 
-        <DialogFooter>
+        <DialogFooter className="flex-shrink-0">
           <Button variant="outline" onClick={handleClose}>
             Close
           </Button>
