@@ -9,11 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 
 const packagingOptions = [
-  { id: 'mushroom', name: 'Mushroom Packaging', dataAiHint: 'mushroom packaging', biodegradable: true, compostable: true, recyclable: false, description: 'Made from mycelium, it\'s fully biodegradable and compostable. Great for protecting fragile items.', suitability: { type: ['electronics', 'cosmetics'], volume: ['small', 'medium'], distance: ['short', 'medium'] } },
-  { id: 'seaweed', name: 'Seaweed Pouch', dataAiHint: 'seaweed pouch', biodegradable: true, compostable: true, recyclable: false, description: 'Edible and water-soluble, perfect for food products or small items. Disappears without a trace.', suitability: { type: ['food', 'cosmetics'], volume: ['small'], distance: ['short'] } },
-  { id: 'air-pillows', name: 'Recycled Air Pillows', dataAiHint: 'air pillows', biodegradable: false, compostable: false, recyclable: true, description: 'Made from recycled materials, these are lightweight and great for void fill. Can be recycled at designated facilities.', suitability: { type: ['all'], volume: ['all'], distance: ['all'] } },
-  { id: 'cardboard', name: 'Corrugated Cardboard', dataAiHint: 'cardboard box', biodegradable: true, compostable: true, recyclable: true, description: 'A versatile, widely recycled option made from paper pulp. Available in various strengths.', suitability: { type: ['all'], volume: ['all'], distance: ['all'] } },
-  { id: 'cornstarch', name: 'Cornstarch Packaging', dataAiHint: 'cornstarch foam', biodegradable: true, compostable: true, recyclable: false, description: 'A plant-based alternative to styrofoam peanuts. Dissolves in water and is fully compostable.', suitability: { type: ['electronics', 'glassware'], volume: ['medium', 'large'], distance: ['short', 'medium'] } },
+  { id: 'mushroom', name: 'Mushroom Packaging', imageUrl: 'https://www.grown.bio/wp-content/uploads/2023/09/mushroom-packaging-flat-top.jpg', dataAiHint: 'mushroom packaging', biodegradable: true, compostable: true, recyclable: false, description: 'Made from mycelium, it\'s fully biodegradable and compostable. Great for protecting fragile items.', suitability: { type: ['electronics', 'cosmetics'], volume: ['small', 'medium'], distance: ['short', 'medium'] } },
+  { id: 'seaweed', name: 'Seaweed Pouch', imageUrl: 'https://www.yankodesign.com/images/design_news/2020/09/edible-food-packaging-made-from-seaweed-has-the-potential-to-offset-carbon-emissions-entirely/03-seaweedu_yankodesign.jpg', dataAiHint: 'seaweed pouch', biodegradable: true, compostable: true, recyclable: false, description: 'Edible and water-soluble, perfect for food products or small items. Disappears without a trace.', suitability: { type: ['food', 'cosmetics'], volume: ['small'], distance: ['short'] } },
+  { id: 'air-pillows', name: 'Recycled Air Pillows', imageUrl: 'https://placehold.co/600x400.png', dataAiHint: 'air pillows', biodegradable: false, compostable: false, recyclable: true, description: 'Made from recycled materials, these are lightweight and great for void fill. Can be recycled at designated facilities.', suitability: { type: ['all'], volume: ['all'], distance: ['all'] } },
+  { id: 'cardboard', name: 'Corrugated Cardboard', imageUrl: 'https://mushroompackaging.com/cdn/shop/files/Treaty_in_Ecovative_Tray_3.jpg?v=1679340875', dataAiHint: 'cardboard box', biodegradable: true, compostable: true, recyclable: true, description: 'A versatile, widely recycled option made from paper pulp. Available in various strengths.', suitability: { type: ['all'], volume: ['all'], distance: ['all'] } },
+  { id: 'cornstarch', name: 'Cornstarch Packaging', imageUrl: 'https://mushroompackaging.com/cdn/shop/files/Small_cooler_both_Pieces.jpg?v=1670267413', dataAiHint: 'cornstarch foam', biodegradable: true, compostable: true, recyclable: false, description: 'A plant-based alternative to styrofoam peanuts. Dissolves in water and is fully compostable.', suitability: { type: ['electronics', 'glassware'], volume: ['medium', 'large'], distance: ['short', 'medium'] } },
 ];
 
 export default function PackageGuide() {
@@ -85,7 +85,7 @@ export default function PackageGuide() {
               <Card key={opt.id} className="flex flex-col">
                 <CardHeader>
                   <div className="relative h-40 w-full mb-4 rounded-md overflow-hidden">
-                     <Image src={`https://placehold.co/600x400.png`} alt={opt.name} layout="fill" objectFit="cover" data-ai-hint={opt.dataAiHint} />
+                     <Image src={opt.imageUrl} alt={opt.name} layout="fill" objectFit="cover" data-ai-hint={opt.dataAiHint} />
                   </div>
                   <CardTitle>{opt.name}</CardTitle>
                   <CardDescription>{opt.description}</CardDescription>
