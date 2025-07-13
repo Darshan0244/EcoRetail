@@ -97,7 +97,7 @@ const generateReportFlow = ai.defineFlow(
 
     // Step 3: Generate the audio from the clean text.
     const { media } = await ai.generate({
-      model: googleAI.model('gemini-2.5-flash-preview-tts'),
+      model: 'googleai/gemini-2.5-flash-preview-tts',
       config: {
         responseModalities: ['AUDIO'],
         speechConfig: {
