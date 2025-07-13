@@ -1,0 +1,29 @@
+diff --git a/node_modules/handlebars/lib/index.js b/node_modules/handlebars/lib/index.js
+index 9234b97..52a6549 100644
+--- a/node_modules/handlebars/lib/index.js
++++ b/node_modules/handlebars/lib/index.js
+@@ -1,5 +1,5 @@
+ // lib/index.js
+-/* global require, module */
++/* global module */
+ 'use strict';
+ 
+ import { create } from './handlebars/base';
+@@ -10,12 +10,4 @@ import { __esModule } from './handlebars/utils';
+ let Handlebars = create();
+ Handlebars.create = create;
+ 
+-__esModule(Handlebars);
+-
+ Handlebars.default = Handlebars;
+-
+-try {
+-  // When using ES6 transpilers, the require() function is not available in modules.
+-  if (typeof require.extensions !== 'undefined') {
+-    require.extensions['.handlebars'] = require.extensions['.hbs'];
+-  }
+-} catch (err) {
+-  // Do nothing
+-}
+-
+ module.exports = Handlebars;
