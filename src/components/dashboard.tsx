@@ -33,6 +33,8 @@ import EnergyAI from '@/components/features/energy-ai';
 import PackageGuide from '@/components/features/package-guide';
 import ShippingCalc from '@/components/features/shipping-calc';
 import AlternativeFinder from '@/components/features/alternative-finder';
+import type { FindSustainableAlternativeOutput } from '@/ai/flows/find-sustainable-alternative';
+
 
 const navItems = [
   { id: 'supply-chain-ai', label: 'Supply Chain AI', icon: Truck, component: SupplyChainAI },
@@ -86,8 +88,15 @@ export function Dashboard() {
   
   const contentSummary = useMemo(() => {
     if (!reportData) return '';
+
+    // For alternative finder, exclude the large image data from the summary.
+    if (activeFeature === 'alternative-finder' && reportData.generatedImage) {
+      const { generatedImage, ...rest } = reportData as FindSustainableAlternativeOutput;
+      return JSON.stringify(rest);
+    }
+    
     return JSON.stringify(reportData);
-  }, [reportData]);
+  }, [reportData, activeFeature]);
 
   return (
     <SidebarProvider>
@@ -131,6 +140,7 @@ export function Dashboard() {
             isOpen={isReportDialogOpen}
             onOpenChange={(open) => {
                 if (!open) {
+                    // Reset report data when closing the dialog
                     setReportData(null);
                 }
                 setIsReportDialogOpen(open);
