@@ -26,12 +26,20 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+const exampleData: FormValues = {
+    storeId: "STORE-001",
+    historicalEnergyData: "Avg 500kWh/day, peaks in summer afternoons.",
+    weatherData: "25°C, sunny, high humidity.",
+    occupancyData: "Peak traffic 12-3 PM on weekdays.",
+    equipmentData: "5 HVAC units (10 years old), LED lighting, 10 refrigeration units.",
+};
+
 export default function EnergyAI() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<OptimizeEnergyConsumptionOutput | null>(null);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
   });
 
@@ -50,6 +58,10 @@ export default function EnergyAI() {
     } else if (optimizationResult) {
       setResult(optimizationResult);
     }
+  };
+
+  const handleLoadExample = () => {
+    reset(exampleData);
   };
 
   return (
@@ -91,10 +103,13 @@ export default function EnergyAI() {
                 {errors.equipmentData && <p className="text-destructive text-sm">{errors.equipmentData.message}</p>}
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="gap-2">
               <Button type="submit" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Optimize Now
+              </Button>
+              <Button type="button" variant="outline" onClick={handleLoadExample}>
+                Load Example
               </Button>
             </CardFooter>
           </form>

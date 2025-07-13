@@ -26,6 +26,15 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+const exampleData: FormValues = {
+    produceType: "Tomatoes",
+    currentInventory: 500,
+    demandForecast: 2000,
+    shelfLifeDays: 14,
+    leadTimeDays: 2,
+    storageCapacity: 3000,
+};
+
 const StatCard = ({ icon: Icon, title, value, unit }: { icon: React.ElementType, title: string, value: string | number, unit?: string }) => (
     <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -44,7 +53,7 @@ export default function SupplyChainAI() {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<OptimizeInventoryLevelsOutput | null>(null);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
   });
 
@@ -63,6 +72,10 @@ export default function SupplyChainAI() {
     } else if (optimizationResult) {
       setResult(optimizationResult);
     }
+  };
+
+  const handleLoadExample = () => {
+    reset(exampleData);
   };
 
   return (
@@ -109,10 +122,13 @@ export default function SupplyChainAI() {
                 {errors.storageCapacity && <p className="text-destructive text-sm">{errors.storageCapacity.message}</p>}
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="gap-2">
               <Button type="submit" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Optimize Inventory
+              </Button>
+              <Button type="button" variant="outline" onClick={handleLoadExample}>
+                Load Example
               </Button>
             </CardFooter>
           </form>
