@@ -18,15 +18,6 @@ const products = {
       { name: 'Packaging', value: 0.08, fill: 'hsl(var(--chart-4))' },
     ],
   },
-  beef: {
-    name: 'Beef (1kg)',
-    footprint: 60,
-    breakdown: [
-      { name: 'Production', value: 55, fill: 'hsl(var(--chart-1))' },
-      { name: 'Transport', value: 2, fill: 'hsl(var(--chart-2))' },
-      { name: 'Packaging', value: 3, fill: 'hsl(var(--chart-4))' },
-    ],
-  },
   tshirt: {
     name: 'Cotton T-Shirt',
     footprint: 7,
