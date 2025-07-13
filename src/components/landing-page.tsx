@@ -20,12 +20,13 @@ export function LandingPage() {
         <section className="relative w-full h-screen flex items-center justify-center">
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
-              alt="Sustainable retail background"
+              src="https://img.freepik.com/premium-photo/eco-friendly-packaging-solutions-sustainable-future_1033579-175475.jpg"
+              alt="Eco-friendly packaging background"
               layout="fill"
               objectFit="cover"
-              data-ai-hint="sustainable retail store"
+              data-ai-hint="eco packaging"
               className="brightness-50"
+              unoptimized
             />
             <div className="absolute inset-0 bg-black/40" />
           </div>
