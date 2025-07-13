@@ -126,14 +126,14 @@ export default function EnergyAI() {
               </div>
             )}
             {result && (
-              <div className="space-y-6">
+              <div className="space-y-6 text-black">
                 <div>
-                  <h3 className="font-semibold text-lg text-black">Energy Saving Recommendations</h3>
-                  <p className="text-black whitespace-pre-line">{result.energySavingRecommendations}</p>
+                  <h3 className="font-semibold text-lg">Energy Saving Recommendations</h3>
+                  <p className="whitespace-pre-line">{result.energySavingRecommendations}</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-black">Estimated Savings</h3>
-                  <p className="text-black">{result.estimatedSavings}</p>
+                  <h3 className="font-semibold text-lg">Estimated Savings</h3>
+                  <p className="">{result.estimatedSavings}</p>
                 </div>
               </div>
             )}
