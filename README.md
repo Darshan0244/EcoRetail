@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div align="center">
   <br />
   <h1 align="center">EcoRetail</h1>
@@ -21,15 +20,18 @@
 
 ## 📖 Table of Contents
 
-- [About The Project](#about-the-project)
-- [✨ Key Features](#-key-features)
-- [🚀 Built With](#-built-with)
-- [🏁 Getting Started](#-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation & Setup](#installation--setup)
-- [🤝 How to Contribute](#-how-to-contribute)
-- [🛣️ Future Roadmap](#️-future-roadmap)
-- [📜 License](#-license)
+<p align="center">
+  <a href="#about-the-project">About The Project</a> •
+  <a href="#-key-features">✨ Key Features</a> •
+  <a href="#-built-with">🚀 Built With</a> •
+  <a href="#-getting-started">🏁 Getting Started</a> •
+  <a href="#prerequisites">Prerequisites</a> •
+  <a href="#installation--setup">Installation & Setup</a> •
+  <a href="#-how-to-contribute">🤝 How to Contribute</a> •
+  <a href="#️-future-roadmap">🛣️ Future Roadmap</a> •
+  <a href="#-license">📜 License</a>
+</p>
+
 
 ---
 
