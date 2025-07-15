@@ -41,9 +41,8 @@
 
 Our mission is to make sustainability actionable and measurable for retailers, contributing to a greener planet while improving operational efficiency and consumer trust.
 
-<p align="center">
-  <img src="https://placehold.co/800x450.png" alt="EcoRetail Application Screenshot" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-</p>
+![EcoRetail Banner](https://res.cloudinary.com/dtjjgiitl/image/upload/q_auto:good,f_auto,fl_progressive/v1752574493/lyuraba6jrwsg1tsnz0i.jpg)
+
 
 ---
 
