@@ -157,4 +157,4 @@ See the [open issues](https://github.com/Darshan0244/EcoRetail/issues) for a ful
 
 ## 📜 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License.
