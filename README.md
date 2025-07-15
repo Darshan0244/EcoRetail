@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div align="center">
   <br />
   <h1 align="center">EcoRetail</h1>
@@ -158,3 +159,6 @@ See the [open issues](https://github.com/Darshan0244/EcoRetail/issues) for a ful
 ## 📜 License
 
 Distributed under the MIT License.
+=======
+# EcoRetail
+>>>>>>> 403e2068d93087fee7343871ab14350206039236
